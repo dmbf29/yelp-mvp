@@ -1,9 +1,18 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+# Fill the DB with some instances we can use
+puts "Cleaning the DB..."
+Restaurant.destroy_all
+
+categories = ["chinese", "italian", "japanese", "french", "belgian"]
+
+
+
+5.times do
+  restaurant_name = Faker::Restaurant.unique.name
+  Restaurant.create!(
+    name: restaurant_name,
+    address: "#{rand(1..3)}-#{rand(1..11)} Meguro, Meguro ku, Tokyo, Japan",
+    category: categories.sample,
+    phone_number: Faker::PhoneNumber.phone_number
+  )
+end
+puts "... created #{Restaurant.count} restaurants"

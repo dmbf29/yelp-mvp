@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="card-category my-3" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/breakfast.jpg)">
+   <%= @restaurant.name %>
+</div>
+  <ul class="list-group list-group-flush ">
+       <li class="list-group-item">
+        <i class="fa-solid fa-map "></i>  <%=@restaurant.address%></li>
+    <% if @restaurant.phone_number == "" %>
+      <li class="list-group-item">No Number</li>
+
+      <% else %>
+      <li class="list-group-item">
+         <i class="fa-solid fa-phone"></i>  <%= @restaurant.phone_number %>
+      </li>
+      <% end %>
+    <li class="list-group-item"><i class="fa-solid fa-utensils"></i>  <%=@restaurant.category%></li>
+  </ul>
+  <h2>
+    Reviews
+    <%= link_to new_restaurant_review_path(@restaurant), class: "btn btn-secondary mx-4" do %>
+    Write a Review <i class="fa-solid fa-pencil"></i>
+    <% end %>
+
+  </h2>
+  <ul class="list-group list-group-flush">
+    <%@restaurant.reviews.each do |review|%>
+      <li class="list-group-item">
+        <%= review.content%>
+        <% review.rating.times do %>
+          <i class="fa-solid fa-star"></i>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>
